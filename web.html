@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone Portfolio | Task 5 Complete</title>
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+        /* 1. Navigation (Responsiveness & Compatibility) */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 10%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        /* 2. Hero Section */
+        .hero {
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+
+        /* 3. Project Grid (Mobile Responsiveness) */
+        .section-padding { padding: 4rem 10%; }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover { transform: translateY(-10px); }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content { padding: 1.5rem; }
+        .card-content h3 { margin-top: 0; color: var(--primary); }
+
+        /* 4. Optimization: Form Styling */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        input, textarea {
+            padding: 0.8rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover { background: #1e40af; }
+
+        /* Mobile Viewports */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .section-padding { padding: 3rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><strong>Dev</strong>Flow</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#projects">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="hero">
+        <h1>Building Digital Experiences</h1>
+        <p>Performance-driven development for the modern web.</p>
+    </header>
+
+    <section id="projects" class="section-padding">
+        <h2 style="text-align: center; font-size: 2.5rem;">Featured Projects</h2>
+        <div class="project-grid" id="project-container">
+            </div>
+    </section>
+
+    <section id="contact" class="section-padding" style="background: #f1f5f9;">
+        <h2 style="text-align: center; font-size: 2.5rem;">Let's Connect</h2>
+        <form id="portfolio-form">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <textarea rows="5" placeholder="Tell me about your project..."></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <script>
+        // Project Data with real, optimized Unsplash images
+        const projectData = [
+            {
+                title: "E-Commerce App",
+                desc: "A high-performance retail solution with lazy-loaded assets and smooth UI.",
+                img: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                title: "Analytics Dashboard",
+                desc: "Real-time data visualization using advanced CSS Grid and responsive charts.",
+                img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                title: "Social Platform",
+                desc: "Mobile-first community platform designed for cross-browser compatibility.",
+                img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        const container = document.getElementById('project-container');
+        
+        // Render Function (Optimization: Minimizes manual HTML work)
+        function renderProjects() {
+            container.innerHTML = projectData.map(p => `
+                <article class="card">
+                    <img src="${p.img}" alt="${p.title}" loading="lazy">
+                    <div class="card-content">
+                        <h3>${p.title}</h3>
+                        <p>${p.desc}</p>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Form Submission Handling
+        document.getElementById('portfolio-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Success! Your message has been sent. This demonstrates functional JS interaction.');
+            e.target.reset();
+        });
+
+        // Initialize App
+        renderProjects();
+    </script>
+</body>
+</html>
