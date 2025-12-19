@@ -1,4 +1,4 @@
-# DevFlow | Modern Capstone Portfolio
+# DevFlow | Modern Portfolio
 
 A high-performance, responsive single-page portfolio built to showcase modern web development practices. This project (Task 5) focuses on clean UI, optimized asset loading, and dynamic content rendering using Vanilla JavaScript.
 
